@@ -1,0 +1,22 @@
+---
+import { personal } from "../data/profile";
+---
+
+<section id="personal">
+  <h2>Beyond the code</h2>
+  <p>{personal.intro}</p>
+  <ul>
+    {personal.facts.map((f) => <li>{f}</li>)}
+  </ul>
+
+  {personal.photos.length > 0 && (
+    <div class="gallery">
+      {personal.photos.map((photo) => (
+        <figure>
+          <img src={photo.src} alt={photo.alt} loading="lazy" />
+          {photo.caption && <figcaption>{photo.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  )}
+</section>

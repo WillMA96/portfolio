@@ -1,0 +1,24 @@
+---
+import { awardsIntro, icpcAwards, olympiadAwards, icpcProfileUrl } from "../data/profile";
+---
+
+<section id="awards">
+  <h2>Competitive Programming</h2>
+  <p>{awardsIntro}</p>
+
+  <h3>ICPC</h3>
+  <ul class="awards">
+    {icpcAwards.map((a) => (
+      <li><strong>{a.result}</strong> · {a.event} ({a.year})</li>
+    ))}
+  </ul>
+
+  <h3>National & International Olympiads</h3>
+  <ul class="awards">
+    {olympiadAwards.map((a) => (
+      <li><strong>{a.result}</strong> · {a.event} ({a.year})</li>
+    ))}
+  </ul>
+
+  <p><a href={icpcProfileUrl} target="_blank" rel="noopener">Official ICPC profile</a></p>
+</section>

@@ -1,0 +1,32 @@
+---
+import { experience, education } from "../data/profile";
+---
+
+<section id="experience">
+  <h2>Experience</h2>
+  {experience.map((job) => (
+    <article class="job">
+      <h3>
+        {job.role} ·
+        {job.companyUrl ? (
+          <a href={job.companyUrl} target="_blank" rel="noopener">{job.company}</a>
+        ) : (
+          job.company
+        )}
+      </h3>
+      <p class="meta">{job.location} · {job.period}</p>
+      {job.blurb && <p class="blurb">{job.blurb}</p>}
+      <ul>
+        {job.bullets.map((b) => <li>{b}</li>)}
+      </ul>
+    </article>
+  ))}
+
+  <h2>Education</h2>
+  {education.map((e) => (
+    <article class="job">
+      <h3>{e.degree}</h3>
+      <p class="meta">{e.school} · {e.location} · {e.period}</p>
+    </article>
+  ))}
+</section>

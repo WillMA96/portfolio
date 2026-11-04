@@ -1,0 +1,25 @@
+---
+import { skills, languages } from "../data/profile";
+---
+
+<section id="skills">
+  <h2>Skills</h2>
+  <dl class="skills">
+    {skills.map((g) => (
+      <>
+        <dt>{g.category}</dt>
+        <dd>
+          <ul class="tags">
+            {g.items.map((s) => <li>{s}</li>)}
+          </ul>
+        </dd>
+      </>
+    ))}
+    <dt>Spoken languages</dt>
+    <dd>
+      <ul class="tags">
+        {languages.map((l) => <li>{l.name}: {l.level}</li>)}
+      </ul>
+    </dd>
+  </dl>
+</section>
