@@ -19,21 +19,23 @@ import { personal } from "../data/profile";
     ))}
   </div>
 
-  <div class="gallery">
-    {personal.photos.map((photo) => (
-      <button
-        type="button"
-        class="thumb"
-        data-lightbox
-        data-src={photo.src}
-        data-alt={photo.alt}
-        data-caption={photo.caption ?? ""}
-        data-link={photo.link?.url ?? ""}
-        data-link-label={photo.link?.label ?? ""}
-        aria-label={`Open photo: ${photo.alt}`}
-      >
-        <img src={photo.src} alt={photo.alt} loading="lazy" />
-      </button>
-    ))}
-  </div>
+  {personal.photos.length > 0 && (
+      <div class="gallery">
+        {personal.photos.map((photo) => (
+          <button
+            type="button"
+            class="thumb"
+            data-lightbox
+            data-src={photo.src}
+            data-alt={photo.alt}
+            data-caption={photo.caption ?? ""}
+            data-link={photo.link?.url ?? ""}
+            data-link-label={photo.link?.label ?? ""}
+            aria-label={`Open photo: ${photo.alt}`}
+          >
+            <img src={photo.src} alt={photo.alt} loading="lazy" />
+          </button>
+        ))}
+      </div>
+  )}
 </section>

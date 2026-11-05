@@ -217,21 +217,6 @@ const photo = {
     alt: "William holding a Barça scarf in the stands at Camp Nou",
     caption: "Dream unlocked: first time at Camp Nou watching Barça.",
   },
-  carlitosBowtie: {
-    src: "/images/carlitos-bowtie.jpg",
-    alt: "Carlitos the cat with a red bow tie lying on a cat tree",
-    caption: "The face that earned him the name.",
-  },
-  carlitosSweater: {
-    src: "/images/carlitos-sweater.jpg",
-    alt: "Carlitos the cat wearing a red Christmas sweater",
-    caption: "Carlitos, dressed for the occasion.",
-  },
-  first10k: {
-    src: "/images/first-10k.jpg",
-    alt: "William and a friend showing their medals after a 10k race",
-    caption: "First official 10k, medal included.",
-  },
 } satisfies Record<string, Photo>;
 
 // ---------------------------------------------------------------------------
@@ -409,5 +394,6 @@ export const personal = {
       link: { label: "My chess.com profile", url: "https://www.chess.com/member/williamma96" },
     },
   ] as Interest[],
-  photos: [photo.carlitosBowtie] as Photo[],
+  // Add photos here (from the `photo` map above) and the gallery appears on its own.
+  photos: [] as Photo[],
 };
