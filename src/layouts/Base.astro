@@ -23,16 +23,19 @@ const nav = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#004d98" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
   <body>
     <header class="site-header">
       <a href="#top" class="brand">{profile.name}</a>
-      <nav>
+      <nav aria-label="Sections">
         {nav.map((item) => <a href={item.href}>{item.label}</a>)}
       </nav>
     </header>
@@ -45,5 +48,42 @@ const nav = [
         <a href={`mailto:${profile.email}`}>{profile.email}</a>
       </p>
     </footer>
+
+    <script>
+      // Fade sections in as they scroll into view.
+      const targets = document.querySelectorAll<HTMLElement>(".reveal");
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.08 },
+        );
+        targets.forEach((t) => io.observe(t));
+      } else {
+        targets.forEach((t) => t.classList.add("visible"));
+      }
+
+      // Highlight the nav link of the section being read.
+      const links = document.querySelectorAll<HTMLAnchorElement>(".site-header nav a");
+      const spy = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              links.forEach((l) =>
+                l.classList.toggle("active", l.getAttribute("href") === "#" + e.target.id),
+              );
+            }
+          }
+        },
+        { rootMargin: "-40% 0px -55% 0px" },
+      );
+      document.querySelectorAll("main section[id]").forEach((s) => spy.observe(s));
+    </script>
   </body>
 </html>

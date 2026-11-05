@@ -2,31 +2,50 @@
 import { experience, education } from "../data/profile";
 ---
 
-<section id="experience">
-  <h2>Experience</h2>
-  {experience.map((job) => (
-    <article class="job">
-      <h3>
-        {job.role} ·
-        {job.companyUrl ? (
-          <a href={job.companyUrl} target="_blank" rel="noopener">{job.company}</a>
-        ) : (
-          job.company
-        )}
-      </h3>
-      <p class="meta">{job.location} · {job.period}</p>
-      {job.blurb && <p class="blurb">{job.blurb}</p>}
-      <ul>
-        {job.bullets.map((b) => <li>{b}</li>)}
-      </ul>
-    </article>
-  ))}
+<section id="experience" class="reveal">
+  <div class="section-head">
+    <h2>Experience</h2>
+    <button type="button" class="link-button" id="toggle-jobs">Expand all</button>
+  </div>
 
-  <h2>Education</h2>
+  <div class="timeline">
+    {experience.map((job) => (
+      <details class="job">
+        <summary>
+          <span class="job-title">{job.role}</span>
+          <span class="job-company">
+            {job.company}
+          </span>
+          <span class="meta">{job.period} · {job.location}</span>
+        </summary>
+        <div class="details-body">
+          {job.blurb && <p class="blurb">{job.blurb}</p>}
+          <ul>
+            {job.bullets.map((b) => <li>{b}</li>)}
+          </ul>
+          {job.companyUrl && (
+            <p><a href={job.companyUrl} target="_blank" rel="noopener">{job.company} website</a></p>
+          )}
+        </div>
+      </details>
+    ))}
+  </div>
+
+  <h3 class="sub">Education</h3>
   {education.map((e) => (
-    <article class="job">
-      <h3>{e.degree}</h3>
-      <p class="meta">{e.school} · {e.location} · {e.period}</p>
-    </article>
+    <p class="edu">
+      <strong>{e.degree}</strong><br />
+      <span class="meta">{e.school} · {e.location} · {e.period}</span>
+    </p>
   ))}
 </section>
+
+<script>
+  const btn = document.getElementById("toggle-jobs");
+  const jobs = () => document.querySelectorAll<HTMLDetailsElement>("#experience .job");
+  btn?.addEventListener("click", () => {
+    const open = [...jobs()].every((d) => d.open);
+    jobs().forEach((d) => (d.open = !open));
+    btn.textContent = open ? "Expand all" : "Collapse all";
+  });
+</script>

@@ -1,20 +1,25 @@
 ---
 import { profile } from "../data/profile";
+const [lead, ...rest] = profile.summary;
 ---
 
-<section id="about" class="hero">
+<section id="about" class="hero reveal">
+  <p class="eyebrow">{profile.location}</p>
   <h1>{profile.name}</h1>
   <p class="subtitle">{profile.title}</p>
-  <p class="meta">{profile.location}</p>
 
-  {profile.summary.map((p) => <p>{p}</p>)}
+  <p class="lead">{lead}</p>
+  <details class="more">
+    <summary>Read more</summary>
+    {rest.map((p) => <p>{p}</p>)}
+  </details>
 
   <ul class="contact">
-    <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-    <li><a href={`tel:${profile.phone.replace(/\s+/g, "")}`}>{profile.phone}</a></li>
+    <li><a href={profile.cvUrl} download class="button primary">Download CV</a></li>
+    <li><a href={`mailto:${profile.email}`} class="button">Email</a></li>
     {profile.links.map((l) => (
-      <li><a href={l.url} target="_blank" rel="noopener">{l.label}</a></li>
+      <li><a href={l.url} target="_blank" rel="noopener" class="button">{l.label}</a></li>
     ))}
-    <li><a href={profile.cvUrl} download class="button">Download CV</a></li>
+    <li><a href={`tel:${profile.phone.replace(/\s+/g, "")}`} class="button">{profile.phone}</a></li>
   </ul>
 </section>

@@ -2,28 +2,70 @@
 import { personal } from "../data/profile";
 ---
 
-<section id="personal">
+<section id="personal" class="reveal">
   <h2>Beyond the code</h2>
-  <p>{personal.intro}</p>
-  <ul>
-    {personal.facts.map((f) => <li>{f}</li>)}
-  </ul>
+  <p class="lead">{personal.intro}</p>
+
+  <details class="more">
+    <summary>A few things about me</summary>
+    <ul>
+      {personal.facts.map((f) => <li>{f}</li>)}
+    </ul>
+  </details>
 
   {personal.photos.length > 0 && (
-    <div class="gallery">
-      {personal.photos.map((photo) => (
-        <figure>
-          <img src={photo.src} alt={photo.alt} loading="lazy" />
-          {(photo.caption || photo.link) && (
-            <figcaption>
-              {photo.caption}{" "}
-              {photo.link && (
-                <a href={photo.link.url} target="_blank" rel="noopener">{photo.link.label}</a>
-              )}
-            </figcaption>
-          )}
-        </figure>
-      ))}
-    </div>
+    <>
+      <p class="meta">Tap a photo to see the story.</p>
+      <div class="gallery">
+        {personal.photos.map((photo) => (
+          <button
+            type="button"
+            class="thumb"
+            data-src={photo.src}
+            data-alt={photo.alt}
+            data-caption={photo.caption ?? ""}
+            data-link={photo.link?.url ?? ""}
+            data-link-label={photo.link?.label ?? ""}
+            aria-label={`Open photo: ${photo.alt}`}
+          >
+            <img src={photo.src} alt={photo.alt} loading="lazy" />
+          </button>
+        ))}
+      </div>
+
+      <dialog id="lightbox">
+        <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+        <img id="lb-img" alt="" />
+        <p id="lb-caption"></p>
+        <p><a id="lb-link" target="_blank" rel="noopener" hidden></a></p>
+      </dialog>
+    </>
   )}
 </section>
+
+<script>
+  const dlg = document.getElementById("lightbox") as HTMLDialogElement | null;
+  if (dlg) {
+    const img = document.getElementById("lb-img") as HTMLImageElement;
+    const cap = document.getElementById("lb-caption")!;
+    const link = document.getElementById("lb-link") as HTMLAnchorElement;
+    document.querySelectorAll<HTMLButtonElement>(".thumb").forEach((t) =>
+      t.addEventListener("click", () => {
+        img.src = t.dataset.src!;
+        img.alt = t.dataset.alt!;
+        cap.textContent = t.dataset.caption || "";
+        const url = t.dataset.link;
+        link.hidden = !url;
+        if (url) {
+          link.href = url;
+          link.textContent = t.dataset.linkLabel || url;
+        }
+        dlg.showModal();
+      }),
+    );
+    // Click on the backdrop closes the dialog.
+    dlg.addEventListener("click", (e) => {
+      if (e.target === dlg) dlg.close();
+    });
+  }
+</script>

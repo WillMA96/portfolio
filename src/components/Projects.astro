@@ -2,32 +2,36 @@
 import { projects } from "../data/profile";
 ---
 
-<section id="projects">
+<section id="projects" class="reveal">
   <h2>Projects</h2>
   {projects.map((p) => (
-    <article class="project">
+    <article class="card project">
       <h3>
         {p.name}
         {p.status && <span class="badge">{p.status}</span>}
       </h3>
       <p class="tagline">{p.tagline}</p>
-      {p.description.map((d) => <p>{d}</p>)}
 
-      <pre class="pipeline">{p.pipeline}</pre>
-
-      <h4>Highlights</h4>
-      <ul>
-        {p.highlights.map((h) => <li>{h}</li>)}
-      </ul>
-
-      <h4>Stack</h4>
       <ul class="tags">
         {p.stack.map((s) => <li>{s}</li>)}
       </ul>
 
+      <details class="more">
+        <summary>The approach</summary>
+        {p.description.map((d) => <p>{d}</p>)}
+        <pre class="pipeline">{p.pipeline}</pre>
+      </details>
+
+      <details class="more">
+        <summary>Results</summary>
+        <ul>
+          {p.highlights.map((h) => <li>{h}</li>)}
+        </ul>
+      </details>
+
       <p class="project-links">
-        {p.repo && <a href={p.repo} target="_blank" rel="noopener">Source on GitHub</a>}
-        {p.demo && <a href={p.demo} target="_blank" rel="noopener">Live demo</a>}
+        {p.repo && <a href={p.repo} target="_blank" rel="noopener" class="button">Source on GitHub</a>}
+        {p.demo && <a href={p.demo} target="_blank" rel="noopener" class="button">Live demo</a>}
       </p>
     </article>
   ))}

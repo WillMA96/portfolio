@@ -2,24 +2,28 @@
 import { skills, languages } from "../data/profile";
 ---
 
-<section id="skills">
+<section id="skills" class="reveal">
   <h2>Skills</h2>
-  <dl class="skills">
+  <div class="skill-grid">
     {skills.map((g) => (
-      <>
-        <dt>{g.category}</dt>
-        <dd>
-          <ul class="tags">
-            {g.items.map((s) => <li>{s}</li>)}
-          </ul>
-        </dd>
-      </>
+      <details class="card">
+        <summary>
+          <span>{g.category}</span>
+          <span class="count">{g.items.length}</span>
+        </summary>
+        <ul class="tags">
+          {g.items.map((s) => <li>{s}</li>)}
+        </ul>
+      </details>
     ))}
-    <dt>Spoken languages</dt>
-    <dd>
+    <details class="card">
+      <summary>
+        <span>Spoken languages</span>
+        <span class="count">{languages.length}</span>
+      </summary>
       <ul class="tags">
         {languages.map((l) => <li>{l.name}: {l.level}</li>)}
       </ul>
-    </dd>
-  </dl>
+    </details>
+  </div>
 </section>

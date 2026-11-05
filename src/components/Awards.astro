@@ -2,23 +2,28 @@
 import { awardsIntro, icpcAwards, olympiadAwards, icpcProfileUrl } from "../data/profile";
 ---
 
-<section id="awards">
+<section id="awards" class="reveal">
   <h2>Competitive Programming</h2>
-  <p>{awardsIntro}</p>
+  <p class="lead">Two-time ICPC World Finalist (2019, 2021) and multiple-time Caribbean Finals medalist.</p>
 
-  <h3>ICPC</h3>
-  <ul class="awards">
-    {icpcAwards.map((a) => (
-      <li><strong>{a.result}</strong> · {a.event} ({a.year})</li>
-    ))}
-  </ul>
+  <details class="more">
+    <summary>ICPC results</summary>
+    <p class="blurb">{awardsIntro}</p>
+    <ul class="awards">
+      {icpcAwards.map((a) => (
+        <li><span class="year">{a.year}</span> <strong>{a.result}</strong> · {a.event}</li>
+      ))}
+    </ul>
+  </details>
 
-  <h3>National & International Olympiads</h3>
-  <ul class="awards">
-    {olympiadAwards.map((a) => (
-      <li><strong>{a.result}</strong> · {a.event} ({a.year})</li>
-    ))}
-  </ul>
+  <details class="more">
+    <summary>National & international olympiads</summary>
+    <ul class="awards">
+      {olympiadAwards.map((a) => (
+        <li><span class="year">{a.year}</span> <strong>{a.result}</strong> · {a.event}</li>
+      ))}
+    </ul>
+  </details>
 
-  <p><a href={icpcProfileUrl} target="_blank" rel="noopener">Official ICPC profile</a></p>
+  <p><a href={icpcProfileUrl} target="_blank" rel="noopener" class="button">Official ICPC profile</a></p>
 </section>
