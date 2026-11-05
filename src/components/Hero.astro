@@ -3,23 +3,31 @@ import { profile } from "../data/profile";
 const [lead, ...rest] = profile.summary;
 ---
 
-<section id="about" class="hero reveal">
-  <p class="eyebrow">{profile.location}</p>
-  <h1>{profile.name}</h1>
-  <p class="subtitle">{profile.title}</p>
+<section id="about" class="reveal">
+  <div class="hero" style={`--hero-bg: url(${profile.heroBackground})`}>
+    <div class="hero-inner">
+      <img class="avatar" src={profile.photo} alt={`Portrait of ${profile.name}`} width="132" height="132" />
+      <div>
+        <p class="eyebrow">{profile.location}</p>
+        <h1>{profile.name}</h1>
+        <p class="subtitle">{profile.title}</p>
+      </div>
+    </div>
 
-  <p class="lead">{lead}</p>
-  <details class="more">
-    <summary>Read more</summary>
-    {rest.map((p) => <p>{p}</p>)}
-  </details>
+    <p class="lead">{lead}</p>
+    <details class="more">
+      <summary>Read more</summary>
+      {rest.map((p) => <p>{p}</p>)}
+    </details>
 
-  <ul class="contact">
-    <li><a href={profile.cvUrl} download class="button primary">Download CV</a></li>
-    <li><a href={`mailto:${profile.email}`} class="button">Email</a></li>
-    {profile.links.map((l) => (
-      <li><a href={l.url} target="_blank" rel="noopener" class="button">{l.label}</a></li>
-    ))}
-    <li><a href={`tel:${profile.phone.replace(/\s+/g, "")}`} class="button">{profile.phone}</a></li>
-  </ul>
+    <ul class="contact">
+      <li><a href={profile.cvUrl} download class="button primary">Download CV</a></li>
+      <li><a href={`mailto:${profile.email}`} class="button">Email</a></li>
+      {profile.links.map((l) => (
+        <li><a href={l.url} target="_blank" rel="noopener" class="button">{l.label}</a></li>
+      ))}
+      <li><a href={`tel:${profile.phone.replace(/\s+/g, "")}`} class="button">{profile.phone}</a></li>
+    </ul>
+    <p class="hero-credit">{profile.heroBackgroundCaption}</p>
+  </div>
 </section>

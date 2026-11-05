@@ -53,6 +53,9 @@ export const profile = {
   email: "williamma961214@gmail.com",
   phone: "+34 624 771 195",
   cvUrl: "/cv.pdf",
+  photo: "/images/profile.jpg",
+  heroBackground: "/images/hero-bg.jpg",
+  heroBackgroundCaption: "ICPC World Finals, Moscow 2021, during the contest",
   links: [
     { label: "LinkedIn", url: "https://www.linkedin.com/in/william-martinez-acosta" },
     { label: "GitHub", url: "https://github.com/WillMA96" },
@@ -241,13 +244,13 @@ export const personal = {
     },
     {
       src: "/images/icpc-2021-moscow-team.jpg",
-      alt: "Team Limitless wearing masks at the ICPC World Finals in Moscow",
-      caption: "World Finals in Moscow, 2021. Masks on, spirits up.",
+      alt: "Team Limitless wearing COVID-19 face masks at the ICPC World Finals in Moscow",
+      caption: "ICPC World Finals, Moscow 2021, held during the COVID-19 pandemic. Masks on, spirits up.",
     },
     {
       src: "/images/icpc-2021-moscow-contest.jpg",
       alt: "Contest floor with the scoreboard at the ICPC World Finals 2021",
-      caption: "Contest day in Moscow, scoreboard in sight.",
+      caption: "Contest day in Moscow 2021 (COVID-19 era): masks, plexiglass dividers and the scoreboard in sight.",
     },
     {
       src: "/images/icpc-2016-caribbean-regional.jpg",
@@ -260,4 +263,40 @@ export const personal = {
       caption: "First official 10k, medal included.",
     },
   ] as Photo[],
+};
+
+export const referenceNotebook = {
+  title: "UO-SAM Limitless team reference",
+  file: "/limitless-reference.pdf",
+  summary:
+    "A 24-page notebook of reference algorithms that my ICPC team implemented ourselves and used during contests to solve recurring problem types. Written in C++, the language we competed in.",
+  categories: [
+    { name: "Data structures", items: ["2D RMQ", "Persistent Treap", "Red-Black Tree", "Rectangle Union O(n log n)"] },
+    { name: "Dynamic programming", items: ["Convex Hull Optimization", "Divide & Conquer to Knuth optimization"] },
+    { name: "Geometry", items: ["Delaunay Triangulation", "Pick's Theorem", "Geometry primitives"] },
+    {
+      name: "Graphs",
+      items: [
+        "Dinic", "Min-Cost Max-Flow", "Flow with lower bounds", "Hopcroft–Karp", "Hungarian", "Stable Marriage",
+        "Dominator Tree", "DSU on Tree", "Mo's Algorithm on Tree", "Minimum Arborescences",
+        "Articulation Points & Bridges", "Steiner Tree", "Stoer–Wagner",
+      ],
+    },
+    {
+      name: "Number theory",
+      items: [
+        "Extended GCD", "Modular inverse", "Modular equations", "Linear congruences", "Möbius", "Euler phi",
+        "Tonelli–Shanks", "Baby-step giant-step", "Primitive roots", "Pollard rho", "FFT / Fast Modulo Transform",
+        "Polynomial inverse", "Linear recurrence solver", "Gauss elimination", "Simplex method", "Partitions",
+        "Josephus", "Floyd cycle finding", "Simpson rule", "Square-free",
+      ],
+    },
+    {
+      name: "Strings",
+      items: [
+        "Aho-Corasick", "Suffix array", "Suffix automaton", "Palindrome tree", "Manacher", "Lyndon decomposition",
+        "Tandems", "Z-function & prefix function",
+      ],
+    },
+  ],
 };
