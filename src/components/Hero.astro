@@ -1,6 +1,5 @@
 ---
 import { profile } from "../data/profile";
-const [lead, ...rest] = profile.summary;
 ---
 
 <section id="about" class="reveal">
@@ -14,11 +13,7 @@ const [lead, ...rest] = profile.summary;
       </div>
     </div>
 
-    <p class="lead">{lead}</p>
-    <details class="more">
-      <summary>Read more</summary>
-      {rest.map((p) => <p>{p}</p>)}
-    </details>
+    {profile.summary.map((p, i) => <p class={i === 0 ? "lead" : ""}>{p}</p>)}
 
     <ul class="contact">
       <li><a href={profile.cvUrl} download class="button primary">Download CV</a></li>
