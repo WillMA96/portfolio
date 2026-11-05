@@ -185,10 +185,10 @@ const photo = {
     alt: "Team Limitless at the ICPC Caribbean regional 2016",
     caption: "My second Caribbean regional, 2016.",
   },
-  icpc2019Arrival: {
-    src: "/images/icpc-2019-porto-arrival.jpg",
-    alt: "Team Limitless in front of the ICPC 2019 World Finals welcome banner",
-    caption: "Arriving at the ICPC World Finals, Porto 2019.",
+  icpc2019Team: {
+    src: "/images/icpc-2019-porto-team.jpg",
+    alt: "The four members of team Limitless with arms crossed in front of the ICPC World Finals Porto sponsor wall",
+    caption: "Team Limitless at the ICPC World Finals, Porto 2019. They always ask us to strike a strange pose in these photos, haha.",
   },
   icpc2019Tourist: {
     src: "/images/icpc-2019-with-tourist.jpg",
@@ -275,7 +275,7 @@ export const milestones: Milestone[] = [
     photos: [
       photo.icpc2015,
       photo.icpc2016,
-      photo.icpc2019Arrival,
+      photo.icpc2019Team,
       photo.icpc2019Tourist,
       photo.icpc2021Team,
       photo.icpc2021Contest,
