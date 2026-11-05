@@ -24,6 +24,7 @@ export interface Project {
 }
 
 export interface Award {
+  url?: string; // optional link rendered on the event name
   result: string;
   event: string;
   year: number;
@@ -169,10 +170,15 @@ export const referenceNotebook = {
 // ---------------------------------------------------------------------------
 
 const photo = {
+  icpc2015: {
+    src: "/images/icpc-2015-caribbean-regional.jpg",
+    alt: "Team Limitless at the ICPC Caribbean regional 2015",
+    caption: "Where it started: my first Caribbean regional, 2015, first year of university.",
+  },
   icpc2016: {
     src: "/images/icpc-2016-caribbean-regional.jpg",
     alt: "Team Limitless at the ICPC Caribbean regional 2016",
-    caption: "Where it started: Caribbean regional, 2016, first year of university.",
+    caption: "My second Caribbean regional, 2016.",
   },
   icpc2019Arrival: {
     src: "/images/icpc-2019-porto-arrival.jpg",
@@ -257,7 +263,8 @@ export const milestones: Milestone[] = [
     year: "2012–15",
     label: "Pre-university",
     title: "Pre-university education",
-    location: "Cuba",
+    org: "Cuqui Bosch",
+    location: "Santiago de Cuba, Cuba",
     period: "Until 2015",
     blurb: "Where competitive programming started: national and international informatics olympiads.",
     awardGroups: [{ title: "Olympiad medals", items: olympiadAwards }],
@@ -276,6 +283,7 @@ export const milestones: Milestone[] = [
     showNotebook: true,
     links: [{ label: "Official ICPC profile", url: icpcProfileUrl }],
     photos: [
+      photo.icpc2015,
       photo.icpc2016,
       photo.icpc2019Arrival,
       photo.icpc2019Tourist,
@@ -354,7 +362,7 @@ export const milestones: Milestone[] = [
     location: "Barcelona, Spain",
     period: "October 2025",
     blurb:
-      "I worked remotely for Invofox until the paperwork was ready, and then finally made the move. It was partly a career decision and partly a lifelong dream: I have been a FC Barcelona fan since I was a kid, and one day I want to meet Messi and the Barça players in person.",
+      "I moved to Barcelona in October 2025. It was partly a career decision and partly a lifelong dream: I have been a FC Barcelona fan since I was a kid, and one day I want to meet Messi and the Barça players in person.",
     bullets: ["Cuban, married, and now living in the city of my favorite club."],
     photos: [photo.campNou],
   },

@@ -79,7 +79,10 @@ d += ` L ${W} ${pts[n - 1].y}`;
                 {g.intro && <p class="meta">{g.intro}</p>}
                 <ul class="awards">
                   {g.items.map((a) => (
-                    <li><span class="year">{a.year}</span> <strong>{a.result}</strong> · {a.event}</li>
+                    <li>
+                      <span class="year">{a.year}</span> <strong>{a.result}</strong> ·
+                      {a.url ? <a href={a.url} target="_blank" rel="noopener">{a.event}</a> : a.event}
+                    </li>
                   ))}
                 </ul>
               </>
