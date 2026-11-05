@@ -203,7 +203,7 @@ export const personal = {
   intro:
     "When I'm not arguing with an LLM about what a valid invoice looks like, this is what the rest of my life looks like.",
   facts: [
-    "Cuban, married, and living in Barcelona since 2024.",
+    "Cuban, married, and living in Barcelona since October 2025.",
     "FC Barcelona fan since I was a kid. Moving to Barcelona was partly a career decision and partly a lifelong dream: one day I want to meet Messi and the Barça players in person. No regrets so far.",
     "I share my home with Carlitos, a cat named after Carlito's Way. As a kitten he had the face of a small-time gangster, so the name picked itself. He has since mellowed, mostly.",
     "Competitive programming has been part of my life since the school olympiads. The ICPC years with my team Limitless and the trips to the World Finals are some of my best memories.",
