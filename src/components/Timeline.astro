@@ -1,13 +1,13 @@
 ---
 import { milestones, referenceNotebook } from "../data/profile";
 
-// Geometry: a wave drawn through the milestone dots (viewBox 1000 x 260).
+// Geometry: a wave drawn through the milestone dots (viewBox 1000 x 210).
 const W = 1000;
-const H = 260;
+const H = 210;
 const n = milestones.length;
 const pts = milestones.map((_, i) => ({
   x: 60 + (i * (W - 120)) / (n - 1),
-  y: i % 2 === 0 ? 90 : 170,
+  y: i % 2 === 0 ? 70 : 140,
 }));
 let d = `M 0 ${pts[0].y} L ${pts[0].x} ${pts[0].y}`;
 for (let i = 1; i < n; i++) {
@@ -20,20 +20,25 @@ d += ` L ${W} ${pts[n - 1].y}`;
 ---
 
 <section id="timeline" class="timeline-wrap">
-  <h2>My path</h2>
-  <p class="meta hint" id="tl-hint">Click a milestone to explore it.</p>
+  <div class="section-head">
+    <h2>My path</h2>
+    <p class="meta hint" id="tl-hint">Click a milestone to explore it.</p>
+  </div>
 
   <div class="tl-scroll">
     <div class="tl" role="group" aria-label="Career timeline">
       <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
         <path class="tl-path-bg" d={d}></path>
         <path class="tl-path" d={d} pathLength="1"></path>
+        <path class="tl-progress" id="tl-progress" d={d} pathLength="1"></path>
+        <circle class="tl-traveler" id="tl-traveler" r="8" cx={pts[0].x} cy={pts[0].y}></circle>
       </svg>
       {milestones.map((m, i) => (
         <div
           class={`stop ${i % 2 === 0 ? "above" : "below"}`}
           data-i={i}
-          style={`left:${(pts[i].x / W) * 100}%; top:${(pts[i].y / H) * 100}%`}
+          data-x={pts[i].x}
+          style={`left:${(pts[i].x / W) * 100}%; top:${(pts[i].y / H) * 100}%; --i:${i}`}
         >
           <button
             type="button"
@@ -56,9 +61,10 @@ d += ` L ${W} ${pts[n - 1].y}`;
       <button type="button" class="link-button" id="tl-close" aria-label="Close details">Close ×</button>
     </div>
 
+    <div class="panels" id="tl-panels">
     {milestones.map((m, i) => (
       <article class="panel" id={`panel-${m.id}`} data-i={i}>
-        <header>
+        <header class="panel-head">
           <p class="meta">{m.period}{m.location ? ` · ${m.location}` : ""}</p>
           <h3>{m.title}</h3>
           {m.org && <p class="org">{m.org}</p>}
@@ -80,33 +86,13 @@ d += ` L ${W} ${pts[n - 1].y}`;
                 <ul class="awards">
                   {g.items.map((a) => (
                     <li>
-                      <span class="year">{a.year}</span> <strong>{a.result}</strong> ·
+                      <span class="year">{a.year}</span> <strong>{a.result}</strong> ·{" "}
                       {a.url ? <a href={a.url} target="_blank" rel="noopener">{a.event}</a> : a.event}
                     </li>
                   ))}
                 </ul>
               </>
             ))}
-
-            {m.showNotebook && (
-              <>
-                <h4 class="cat">Team reference notebook (C++)</h4>
-                <p class="meta">{referenceNotebook.summary}</p>
-                <div class="notebook">
-                  {referenceNotebook.categories.map((c) => (
-                    <>
-                      <p class="cat-name">{c.name}</p>
-                      <ul class="tags">
-                        {c.items.map((it) => <li>{it}</li>)}
-                      </ul>
-                    </>
-                  ))}
-                </div>
-                <p>
-                  <a href={referenceNotebook.file} download class="button primary">Download the PDF</a>
-                </p>
-              </>
-            )}
 
             {m.links && (
               <p class="project-links">
@@ -131,7 +117,7 @@ d += ` L ${W} ${pts[n - 1].y}`;
                   data-link-label={m.photos[0].link?.label ?? ""}
                   aria-label="Enlarge photo"
                 >
-                  <img class="gal-main" src={m.photos[0].src} alt={m.photos[0].alt} loading="lazy" />
+                  <img class="gal-main" src={m.photos[0].src} alt={m.photos[0].alt} />
                 </button>
                 <figcaption>
                   <span class="gal-cap">{m.photos[0].caption}</span>{" "}
@@ -161,8 +147,29 @@ d += ` L ${W} ${pts[n - 1].y}`;
             </div>
           )}
         </div>
+
+        {m.showNotebook && (
+          <div class="panel-wide">
+            <h4 class="cat">Team reference notebook (C++)</h4>
+            <p class="meta">{referenceNotebook.summary}</p>
+            <div class="notebook">
+              {referenceNotebook.categories.map((c) => (
+                <div>
+                  <p class="cat-name">{c.name}</p>
+                  <ul class="tags">
+                    {c.items.map((it) => <li>{it}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p>
+              <a href={referenceNotebook.file} download class="button primary">Download the PDF</a>
+            </p>
+          </div>
+        )}
       </article>
     ))}
+    </div>
   </div>
 </section>
 
@@ -171,34 +178,208 @@ d += ` L ${W} ${pts[n - 1].y}`;
   const stops = [...root.querySelectorAll<HTMLElement>(".stop")];
   const panels = [...root.querySelectorAll<HTMLElement>(".panel")];
   const wrap = document.getElementById("tl-panel")!;
+  const box = document.getElementById("tl-panels")!;
   const hint = document.getElementById("tl-hint")!;
   const counter = document.getElementById("tl-counter")!;
   const prev = document.getElementById("tl-prev") as HTMLButtonElement;
   const next = document.getElementById("tl-next") as HTMLButtonElement;
+  const scroller = root.querySelector<HTMLElement>(".tl-scroll")!;
+  const progress = document.getElementById("tl-progress") as unknown as SVGPathElement;
+  const traveler = document.getElementById("tl-traveler") as unknown as SVGCircleElement;
+
+  const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+  const canAnimate = !reduced && typeof Element.prototype.animate === "function";
+  const EASE_OUT = "cubic-bezier(.22, 1, .36, 1)";
+  const EASE_IN = "cubic-bezier(.4, 0, 1, 1)";
+
   let current = -1;
+  let token = 0;
+  let running: Animation[] = [];
+
+  function stopAnimations() {
+    running.forEach((a) => a.cancel());
+    running = [];
+    panels.forEach((p) => p.classList.remove("leaving"));
+    box.classList.remove("animating");
+  }
+
+  function play(el: Element, frames: Keyframe[], opts: KeyframeAnimationOptions) {
+    const a = el.animate(frames, { fill: "backwards", ...opts });
+    running.push(a);
+  }
+
+  // Content arrives in small steps: title, then text, then photos.
+  function enter(panel: Element, dx: number, dy: number, baseDelay: number) {
+    const parts = [".panel-head", ".panel-text", ".gal", ".panel-wide"]
+      .map((s) => panel.querySelector(s))
+      .filter(Boolean) as Element[];
+    parts.forEach((el, k) =>
+      play(
+        el,
+        [
+          { opacity: 0, transform: `translate(${dx}px, ${dy}px)` },
+          { opacity: 1, transform: "none" },
+        ],
+        { duration: 480, delay: baseDelay + k * 70, easing: EASE_OUT },
+      ),
+    );
+  }
+
+  function openPanel(to: number) {
+    panels.forEach((p, k) => p.classList.toggle("active", k === to));
+    wrap.classList.add("open");
+    if (!canAnimate) return;
+    const nodeX = stops[to].getBoundingClientRect().left - wrap.getBoundingClientRect().left;
+    wrap.style.transformOrigin = `${nodeX}px 0`;
+    play(
+      wrap,
+      [
+        { opacity: 0, transform: "translateY(-10px) scale(.96)" },
+        { opacity: 1, transform: "none" },
+      ],
+      { duration: 420, easing: EASE_OUT },
+    );
+    enter(panels[to], 0, 14, 80);
+  }
+
+  function switchPanel(from: number, to: number, startH: number) {
+    const out = panels[from];
+    const inc = panels[to];
+    out.classList.remove("active");
+    inc.classList.add("active");
+    if (!canAnimate) return;
+    const dir = to > from ? 1 : -1;
+    out.classList.add("leaving");
+    const endH = box.offsetHeight;
+    box.classList.add("animating");
+    play(
+      out,
+      [
+        { opacity: 1, transform: "none" },
+        { opacity: 0, transform: `translateX(${-dir * 56}px)` },
+      ],
+      { duration: 240, easing: EASE_IN, fill: "forwards" },
+    );
+    enter(inc, dir * 56, 0, 90);
+    play(box, [{ height: `${startH}px` }, { height: `${endH}px` }], { duration: 460, easing: EASE_OUT });
+  }
+
+  function closePanel(after: () => void) {
+    if (!canAnimate) return after();
+    play(
+      wrap,
+      [
+        { opacity: 1, transform: "none" },
+        { opacity: 0, transform: "translateY(-8px) scale(.97)" },
+      ],
+      { duration: 220, easing: EASE_IN, fill: "forwards" },
+    );
+  }
+
+  // ---------- dot travelling along the curve ----------
+  let fractions: number[] | null = null;
+  let pathLen = 0;
+  let pos = 0;
+  let raf = 0;
+
+  function measure() {
+    pathLen = progress.getTotalLength();
+    fractions = stops.map((s) => {
+      const x = Number(s.dataset.x);
+      let lo = 0;
+      let hi = pathLen;
+      for (let k = 0; k < 24; k++) {
+        const mid = (lo + hi) / 2;
+        if (progress.getPointAtLength(mid).x < x) lo = mid;
+        else hi = mid;
+      }
+      return lo / pathLen;
+    });
+  }
+
+  function setPos(f: number) {
+    pos = f;
+    progress.style.strokeDasharray = `${f} 1`;
+    const pt = progress.getPointAtLength(f * pathLen);
+    traveler.setAttribute("cx", String(pt.x));
+    traveler.setAttribute("cy", String(pt.y));
+  }
+
+  function travel(i: number) {
+    if (typeof progress.getTotalLength !== "function") return;
+    if (!fractions) measure();
+    const target = i < 0 ? 0 : fractions![i];
+    traveler.classList.toggle("on", i >= 0);
+    cancelAnimationFrame(raf);
+    if (!canAnimate) return setPos(target);
+    const start = pos;
+    const duration = Math.min(900, Math.max(320, Math.abs(target - start) * 1500));
+    const t0 = performance.now();
+    const tick = (now: number) => {
+      const k = Math.min(1, (now - t0) / duration);
+      const eased = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      setPos(start + (target - start) * eased);
+      if (k < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+  }
+
+  // ---------- selection ----------
+  function revealPanel() {
+    if (wrap.getBoundingClientRect().top < window.innerHeight * 0.6) return;
+    const header = document.querySelector(".site-header") as HTMLElement | null;
+    const top = scroller.getBoundingClientRect().top + window.scrollY - (header?.offsetHeight ?? 0) - 16;
+    window.scrollTo({ top, behavior: canAnimate ? "smooth" : "auto" });
+  }
 
   function select(i: number, focus = false) {
-    if (i < -1 || i >= stops.length) return;
+    if (i < -1 || i >= stops.length || i === current) return;
+    const from = current;
     current = i;
+    const t = ++token;
+    const startH = box.offsetHeight;
+    stopAnimations();
+
     stops.forEach((s, k) => {
       s.classList.toggle("selected", k === i);
+      s.classList.toggle("passed", k < i);
       s.querySelector("button")!.setAttribute("aria-expanded", String(k === i));
     });
-    panels.forEach((p, k) => p.classList.toggle("active", k === i));
-    wrap.classList.toggle("open", i >= 0);
-    hint.hidden = i >= 0;
-    if (i >= 0) {
+    hint.classList.toggle("off", i >= 0);
+    travel(i);
+
+    let after = () => {};
+    if (i < 0) {
+      after = () => {
+        wrap.classList.remove("open");
+        panels.forEach((p) => p.classList.remove("active"));
+      };
+      closePanel(after);
+    } else {
       counter.textContent = `${i + 1} / ${stops.length}`;
       prev.disabled = i === 0;
       next.disabled = i === stops.length - 1;
-      stops[i].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      if (focus) stops[i].querySelector("button")!.focus();
+      if (from < 0) {
+        openPanel(i);
+        revealPanel();
+      } else {
+        switchPanel(from, i, startH);
+      }
+      const left = stops[i].offsetLeft - scroller.clientWidth / 2;
+      scroller.scrollTo?.({ left, behavior: canAnimate ? "smooth" : "auto" });
+      if (focus) stops[i].querySelector("button")!.focus({ preventScroll: true });
     }
+
+    Promise.allSettled(running.map((a) => a.finished)).then(() => {
+      if (t !== token) return;
+      if (i < 0) after();
+      stopAnimations();
+    });
   }
 
   stops.forEach((s, i) => s.addEventListener("click", () => select(current === i ? -1 : i)));
-  prev.addEventListener("click", () => select(current - 1, true));
-  next.addEventListener("click", () => select(current + 1, true));
+  prev.addEventListener("click", () => select(current - 1));
+  next.addEventListener("click", () => select(current + 1));
   document.getElementById("tl-close")!.addEventListener("click", () => select(-1));
   root.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") select(Math.min(stops.length - 1, current + 1), true);
@@ -206,31 +387,57 @@ d += ` L ${W} ${pts[n - 1].y}`;
     else if (e.key === "Escape") select(-1);
   });
 
-  // Mini gallery inside each panel: thumbnails swap the main photo.
+  // The entrance animation only plays the first time.
+  setTimeout(() => root.classList.add("played"), 3200);
+
+  // ---------- mini gallery: thumbnails cross-fade the main photo ----------
   root.querySelectorAll<HTMLElement>(".gal").forEach((gal) => {
     const main = gal.querySelector<HTMLImageElement>(".gal-main")!;
     const open = gal.querySelector<HTMLElement>(".gal-open")!;
+    const caption = gal.querySelector<HTMLElement>("figcaption")!;
     const cap = gal.querySelector<HTMLElement>(".gal-cap")!;
     const link = gal.querySelector<HTMLAnchorElement>(".gal-link")!;
+    let wanted = "";
+
     gal.querySelectorAll<HTMLButtonElement>(".gal-thumb").forEach((t) =>
       t.addEventListener("click", () => {
         const d = t.dataset;
-        main.src = d.src!;
-        main.alt = d.alt!;
-        cap.textContent = d.caption || "";
-        link.hidden = !d.link;
-        if (d.link) {
-          link.href = d.link;
-          link.textContent = d.linkLabel || d.link;
-        }
-        Object.assign(open.dataset, {
-          src: d.src,
-          alt: d.alt,
-          caption: d.caption,
-          link: d.link,
-          linkLabel: d.linkLabel,
-        });
+        wanted = d.src!;
         gal.querySelectorAll(".gal-thumb").forEach((x) => x.classList.toggle("on", x === t));
+
+        const apply = () => {
+          main.src = d.src!;
+          main.alt = d.alt!;
+          cap.textContent = d.caption || "";
+          link.hidden = !d.link;
+          if (d.link) {
+            link.href = d.link;
+            link.textContent = d.linkLabel || d.link;
+          }
+          Object.assign(open.dataset, {
+            src: d.src,
+            alt: d.alt,
+            caption: d.caption,
+            link: d.link,
+            linkLabel: d.linkLabel,
+          });
+        };
+
+        if (!canAnimate) return apply();
+        const pre = new Image();
+        pre.src = d.src!;
+        pre.decode().catch(() => {}).then(() => {
+          if (wanted !== d.src) return;
+          apply();
+          main.animate(
+            [
+              { opacity: 0, transform: "scale(1.03)" },
+              { opacity: 1, transform: "none" },
+            ],
+            { duration: 380, easing: EASE_OUT },
+          );
+          caption.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 320, easing: "ease" });
+        });
       }),
     );
   });

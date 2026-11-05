@@ -43,13 +43,13 @@ const nav = [
     </main>
     <footer class="site-footer">
       <p>
-        © {new Date().getFullYear()} {profile.name} ·
+        © {new Date().getFullYear()} {profile.name} ·{" "}
         <a href={`mailto:${profile.email}`}>{profile.email}</a>
       </p>
     </footer>
 
     <dialog id="lightbox">
-      <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+      <button type="button" class="close" id="lb-close" aria-label="Close">×</button>
       <img id="lb-img" alt="" />
       <p id="lb-caption"></p>
       <p><a id="lb-link" target="_blank" rel="noopener" hidden></a></p>
@@ -59,12 +59,35 @@ const nav = [
       // Views: only the one matching the URL hash is visible.
       const views = [...document.querySelectorAll<HTMLElement>(".view")];
       const links = [...document.querySelectorAll<HTMLAnchorElement>(".site-header nav a")];
+      const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+      let shown = -1;
       function showView() {
         const id = location.hash.slice(1);
         const target = views.find((v) => v.id === id) ?? views[0];
-        views.forEach((v) => v.classList.toggle("active", v === target));
-        links.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === "#" + target.id));
-        window.scrollTo(0, 0);
+        const idx = views.indexOf(target);
+        if (idx === shown) return;
+        const first = shown < 0;
+        const dir = idx > shown ? 1 : -1;
+        shown = idx;
+        const apply = () => {
+          views.forEach((v) => v.classList.toggle("active", v === target));
+          links.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === "#" + target.id));
+          window.scrollTo({ top: 0, behavior: "instant" });
+        };
+        if (first || reduced) return apply();
+        if (document.startViewTransition) {
+          document.documentElement.style.setProperty("--vt-dir", String(dir));
+          document.startViewTransition(apply);
+        } else {
+          apply();
+          target.animate?.(
+            [
+              { opacity: 0, transform: `translateX(${dir * 32}px)` },
+              { opacity: 1, transform: "none" },
+            ],
+            { duration: 380, easing: "cubic-bezier(.22, 1, .36, 1)" },
+          );
+        }
       }
       window.addEventListener("hashchange", showView);
       showView();
@@ -88,8 +111,21 @@ const nav = [
         }
         dlg.showModal();
       });
+      function closeLightbox() {
+        if (reduced) return dlg.close();
+        dlg.classList.add("closing");
+        setTimeout(() => {
+          dlg.classList.remove("closing");
+          dlg.close();
+        }, 180);
+      }
+      document.getElementById("lb-close")!.addEventListener("click", closeLightbox);
+      dlg.addEventListener("cancel", (e) => {
+        e.preventDefault();
+        closeLightbox();
+      });
       dlg.addEventListener("click", (e) => {
-        if (e.target === dlg) dlg.close();
+        if (e.target === dlg) closeLightbox();
       });
     </script>
   </body>

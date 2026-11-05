@@ -4,25 +4,31 @@ import { profile } from "../data/profile";
 
 <section id="about">
   <div class="hero" style={`--hero-bg: url(${profile.heroBackground})`}>
-    <div class="hero-inner">
-      <img class="avatar" src={profile.photo} alt={`Portrait of ${profile.name}`} width="132" height="132" />
-      <div>
-        <p class="eyebrow">{profile.location}</p>
-        <h1>{profile.name}</h1>
-        <p class="subtitle">{profile.title}</p>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-inner">
+          <img class="avatar" src={profile.photo} alt={`Portrait of ${profile.name}`} width="132" height="132" />
+          <div>
+            <p class="eyebrow">{profile.location}</p>
+            <h1>{profile.name}</h1>
+            <p class="subtitle">{profile.title}</p>
+          </div>
+        </div>
+
+        <ul class="contact">
+          <li><a href={profile.cvUrl} download class="button primary">Download CV</a></li>
+          <li><a href={`mailto:${profile.email}`} class="button">Email</a></li>
+          {profile.links.map((l) => (
+            <li><a href={l.url} target="_blank" rel="noopener" class="button">{l.label}</a></li>
+          ))}
+          <li><a href={`tel:${profile.phone.replace(/\s+/g, "")}`} class="button">{profile.phone}</a></li>
+        </ul>
+      </div>
+
+      <div class="hero-summary">
+        {profile.summary.map((p, i) => <p class={i === 0 ? "lead" : ""}>{p}</p>)}
       </div>
     </div>
-
-    {profile.summary.map((p, i) => <p class={i === 0 ? "lead" : ""}>{p}</p>)}
-
-    <ul class="contact">
-      <li><a href={profile.cvUrl} download class="button primary">Download CV</a></li>
-      <li><a href={`mailto:${profile.email}`} class="button">Email</a></li>
-      {profile.links.map((l) => (
-        <li><a href={l.url} target="_blank" rel="noopener" class="button">{l.label}</a></li>
-      ))}
-      <li><a href={`tel:${profile.phone.replace(/\s+/g, "")}`} class="button">{profile.phone}</a></li>
-    </ul>
     <p class="hero-credit">{profile.heroBackgroundCaption}</p>
   </div>
 </section>

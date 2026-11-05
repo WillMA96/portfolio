@@ -16,14 +16,19 @@ import { projects } from "../data/profile";
         {p.stack.map((s) => <li>{s}</li>)}
       </ul>
 
-      <h4 class="cat">The approach</h4>
-      {p.description.map((d) => <p>{d}</p>)}
+      <div class="project-grid">
+        <div>
+          <h4 class="cat">The approach</h4>
+          {p.description.map((d) => <p>{d}</p>)}
+        </div>
+        <div>
+          <h4 class="cat">Results</h4>
+          <ul>
+            {p.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+        </div>
+      </div>
       <pre class="pipeline">{p.pipeline}</pre>
-
-      <h4 class="cat">Results</h4>
-      <ul>
-        {p.highlights.map((h) => <li>{h}</li>)}
-      </ul>
 
       <p class="project-links">
         {p.repo && <a href={p.repo} target="_blank" rel="noopener" class="button">Source on GitHub</a>}
