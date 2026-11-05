@@ -139,7 +139,7 @@ dialog .close { position: absolute; right: 0.6rem; top: 0.4rem; font-size: 1.6re
   padding: 1.75rem 1.5rem 1rem; border-radius: var(--radius);
   background:
     linear-gradient(180deg, rgb(0 20 50 / 78%), rgb(0 20 50 / 90%)),
-    var(--hero-bg) center / cover no-repeat;
+    var(--hero-bg) 88% center / cover no-repeat;
 }
 .hero a { color: #fff; }
 .hero .subtitle, .hero .meta { color: #d5def0; }
