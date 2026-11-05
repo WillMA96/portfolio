@@ -315,6 +315,7 @@ export const milestones: Milestone[] = [
       "Developed front-end interfaces with HTML, CSS, JavaScript and jQuery; implemented SQL Server stored procedures and SSDT pipelines.",
       "Worked within Azure DevOps under Scrum methodology.",
     ],
+    links: [{ label: "Middlesoft website", url: "https://middlesoft.tech/mds-about.html" }],
   },
   {
     id: "toshiba",
@@ -363,7 +364,6 @@ export const milestones: Milestone[] = [
     period: "October 2025",
     blurb:
       "I moved to Barcelona in October 2025. It was partly a career decision and partly a lifelong dream: I have been a FC Barcelona fan since I was a kid, and one day I want to meet Messi and the Barça players in person.",
-    bullets: ["Cuban, married, and now living in the city of my favorite club."],
     photos: [photo.campNou],
   },
 ];
@@ -372,13 +372,37 @@ export const milestones: Milestone[] = [
 // Personal view
 // ---------------------------------------------------------------------------
 
+export interface Interest {
+  title: string;
+  text: string;
+  link?: Link;
+}
+
 export const personal = {
   intro:
     "When I'm not arguing with an LLM about what a valid invoice looks like, this is what the rest of my life looks like.",
   facts: [
-    "FC Barcelona fan since I was a kid, and still chasing the dream of meeting Messi.",
+    "I'm a very passionate person and I like a lot of things, especially sport, music and cinema.",
     "I share my home with Carlitos, a cat named after Carlito's Way. As a kitten he had the face of a small-time gangster, so the name picked itself. He has since mellowed, mostly.",
-    "Recently I started running. I finished my first official 10k and I'm already looking for the next one.",
   ],
-  photos: [photo.carlitosBowtie, photo.carlitosSweater, photo.first10k] as Photo[],
+  interests: [
+    {
+      title: "Sport",
+      text: "Football first: FC Barcelona fan since I was a kid, and still chasing the dream of meeting Messi. Recently I started running and finished my first official 10k.",
+    },
+    {
+      title: "Music",
+      text: "Rock above all: Linkin Park, Coldplay (the early Coldplay), Nirvana, Guns N' Roses, Metallica and plenty of other classics. I also love electronic and instrumental music. In short, good music.",
+    },
+    {
+      title: "Movies",
+      text: "A proper cinephile. Mafia movies are my favorite genre for the great acting, though my favorite films are Forrest Gump and The Shawshank Redemption. Favorite actors: Johnny Depp and, more recently, Bob Odenkirk.",
+    },
+    {
+      title: "Chess",
+      text: "I love chess and would like to get better, but I haven't had the time to study it properly yet, haha.",
+      link: { label: "My chess.com profile", url: "https://www.chess.com/member/williamma96" },
+    },
+  ] as Interest[],
+  photos: [photo.carlitosBowtie] as Photo[],
 };

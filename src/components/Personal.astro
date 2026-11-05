@@ -9,6 +9,16 @@ import { personal } from "../data/profile";
     {personal.facts.map((f) => <li>{f}</li>)}
   </ul>
 
+  <div class="interests">
+    {personal.interests.map((i) => (
+      <div class="card">
+        <h3 class="skill-title">{i.title}</h3>
+        <p>{i.text}</p>
+        {i.link && <p><a href={i.link.url} target="_blank" rel="noopener" class="button">{i.link.label}</a></p>}
+      </div>
+    ))}
+  </div>
+
   <div class="gallery">
     {personal.photos.map((photo) => (
       <button
