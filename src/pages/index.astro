@@ -1,18 +1,18 @@
 ---
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
-import Experience from "../components/Experience.astro";
+import Timeline from "../components/Timeline.astro";
 import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
-import Awards from "../components/Awards.astro";
 import Personal from "../components/Personal.astro";
 ---
 
 <Base>
-  <Hero />
-  <Experience />
-  <Projects />
-  <Skills />
-  <Awards />
-  <Personal />
+  <div class="view" id="profile">
+    <Hero />
+    <Timeline />
+  </div>
+  <div class="view" id="projects"><Projects /></div>
+  <div class="view" id="skills"><Skills /></div>
+  <div class="view" id="personal"><Personal /></div>
 </Base>

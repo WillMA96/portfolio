@@ -6,16 +6,6 @@ export interface Link {
   url: string;
 }
 
-export interface Job {
-  role: string;
-  company: string;
-  companyUrl?: string;
-  location: string;
-  period: string;
-  blurb?: string;
-  bullets: string[];
-}
-
 export interface SkillGroup {
   category: string;
   items: string[];
@@ -67,61 +57,6 @@ export const profile = {
   ],
 };
 
-export const experience: Job[] = [
-  {
-    role: "Algorithm & AI Engineer",
-    company: "Invofox",
-    companyUrl: "https://www.invofox.com",
-    location: "Barcelona, Spain (Hybrid)",
-    period: "Aug 2024 – Present",
-    blurb: "AI-powered startup automating invoice and document processing.",
-    bullets: [
-      "Own use cases end-to-end: requirements analysis, design, implementation, testing, deployment and post-production monitoring of results and costs.",
-      "Design multi-step document processing pipelines that orchestrate LLM-based and algorithmic components to deliver reliable structured data extraction.",
-      "Develop tool-using agents that automate internal processes: configuring and optimizing client-specific extraction pipelines through iterative evaluation, and investigating production issues across logs and stored data.",
-      "Integrate and evaluate multiple LLM providers, iterating on model and prompt strategies to balance quality, latency and cost.",
-      "Build evaluation practices end-to-end: ground-truth datasets, baselines, accuracy metrics and reproducible experimentation cycles to catch regressions and track business impact.",
-      "Develop algorithms to improve document and OCR processing quality; maintain and refactor production components and define schemas and validation rules from business requirements.",
-    ],
-  },
-  {
-    role: "Software Engineer",
-    company: "Toshiba Global Commerce Solutions",
-    companyUrl: "https://commerce.toshiba.com",
-    location: "Guadalajara, México",
-    period: "May 2022 – Aug 2024",
-    blurb: "Global market share leader in retail store technology: POS systems, self-checkout and retail software.",
-    bullets: [
-      "Maintained a production Linux-based retail operating system; performed root-cause analysis and debugging using low-level system tools.",
-      "Developed features and fixes in C, C++, Java, Python and Bash across OS-level components.",
-      "Authored technical documentation and contributed ideas to internal patent registration processes.",
-      "Built internal tooling to automate compilation environment configuration, reducing developer setup time.",
-    ],
-  },
-  {
-    role: "Full Stack Web Developer",
-    company: "Middlesoft",
-    location: "Montevideo, Uruguay (Remote)",
-    period: "Nov 2020 – May 2022",
-    blurb: "Custom industrial, logistics and commercial software solutions.",
-    bullets: [
-      "Built server-side logic, REST APIs and database layers for resource management systems in the steel industry using ASP.NET and ASP.NET Core.",
-      "Developed front-end interfaces with HTML, CSS, JavaScript and jQuery; implemented SQL Server stored procedures and SSDT pipelines.",
-      "Worked within Azure DevOps under Scrum methodology.",
-    ],
-  },
-  {
-    role: "College Professor",
-    company: "Universidad de Oriente",
-    location: "Santiago de Cuba, Cuba",
-    period: "Aug 2020 – Dec 2021",
-    bullets: [
-      "Taught Algebra and Analytical Geometry.",
-      "Mentored competitive programming teams for ICPC.",
-    ],
-  },
-];
-
 export const skills: SkillGroup[] = [
   {
     category: "AI & Machine Learning",
@@ -141,15 +76,6 @@ export const skills: SkillGroup[] = [
   { category: "Databases & Storage", items: ["MongoDB", "SQL Server", "S3"] },
   { category: "Backend & APIs", items: ["REST API design", "ASP.NET Core", "Node"] },
   { category: "Cloud & DevOps", items: ["AWS", "Azure DevOps"] },
-];
-
-export const education = [
-  {
-    degree: "Bachelor's Degree in Computer Science",
-    school: "Universidad de Oriente",
-    location: "Cuba",
-    period: "Sep 2015 – Aug 2020",
-  },
 ];
 
 export const projects: Project[] = [
@@ -202,69 +128,6 @@ export const languages = [
   { name: "English", level: "Proficient (B2/C1)" },
 ];
 
-export const personal = {
-  intro:
-    "When I'm not arguing with an LLM about what a valid invoice looks like, this is what the rest of my life looks like.",
-  facts: [
-    "Cuban, married, and living in Barcelona since October 2025.",
-    "FC Barcelona fan since I was a kid. Moving to Barcelona was partly a career decision and partly a lifelong dream: one day I want to meet Messi and the Barça players in person. No regrets so far.",
-    "I share my home with Carlitos, a cat named after Carlito's Way. As a kitten he had the face of a small-time gangster, so the name picked itself. He has since mellowed, mostly.",
-    "Competitive programming has been part of my life since the school olympiads. The ICPC years with my team Limitless and the trips to the World Finals are some of my best memories.",
-    "Recently I started running. I finished my first official 10k and I'm already looking for the next one.",
-  ],
-  // Drop image files into /public/images and list them here.
-  // The gallery only renders the photos listed below.
-  photos: [
-    {
-      src: "/images/camp-nou.jpg",
-      alt: "William holding a Barça scarf in the stands at Camp Nou",
-      caption: "Dream unlocked: first time at Camp Nou watching Barça.",
-    },
-    {
-      src: "/images/carlitos-sweater.jpg",
-      alt: "Carlitos the cat wearing a red Christmas sweater",
-      caption: "Carlitos, dressed for the occasion.",
-    },
-    {
-      src: "/images/carlitos-bowtie.jpg",
-      alt: "Carlitos the cat with a red bow tie lying on a cat tree",
-      caption: "The face that earned him the name.",
-    },
-    {
-      src: "/images/icpc-2019-with-tourist.jpg",
-      alt: "William with Gennady Korotkevich at the ICPC World Finals 2019",
-      caption:
-        "With Gennady \"tourist\" Korotkevich at the 2019 World Finals in Porto. Widely regarded as the greatest competitive programmer of all time.",
-      link: { label: "Who is tourist?", url: "https://en.wikipedia.org/wiki/Gennady_Korotkevich" },
-    },
-    {
-      src: "/images/icpc-2019-porto-arrival.jpg",
-      alt: "Team Limitless in front of the ICPC 2019 World Finals welcome banner",
-      caption: "Arriving at the ICPC World Finals, Porto 2019.",
-    },
-    {
-      src: "/images/icpc-2021-moscow-team.jpg",
-      alt: "Team Limitless wearing COVID-19 face masks at the ICPC World Finals in Moscow",
-      caption: "ICPC World Finals, Moscow 2021, held during the COVID-19 pandemic. Masks on, spirits up.",
-    },
-    {
-      src: "/images/icpc-2021-moscow-contest.jpg",
-      alt: "Contest floor with the scoreboard at the ICPC World Finals 2021",
-      caption: "Contest day in Moscow 2021 (COVID-19 era): masks, plexiglass dividers and the scoreboard in sight.",
-    },
-    {
-      src: "/images/icpc-2016-caribbean-regional.jpg",
-      alt: "Team Limitless at the ICPC Caribbean regional 2016",
-      caption: "Where it started: Caribbean regional, 2016, first year of university.",
-    },
-    {
-      src: "/images/first-10k.jpg",
-      alt: "William and a friend showing their medals after a 10k race",
-      caption: "First official 10k, medal included.",
-    },
-  ] as Photo[],
-};
-
 export const referenceNotebook = {
   title: "UO-SAM Limitless team reference",
   file: "/limitless-reference.pdf",
@@ -299,4 +162,215 @@ export const referenceNotebook = {
       ],
     },
   ],
+};
+
+// ---------------------------------------------------------------------------
+// Photos
+// ---------------------------------------------------------------------------
+
+const photo = {
+  icpc2016: {
+    src: "/images/icpc-2016-caribbean-regional.jpg",
+    alt: "Team Limitless at the ICPC Caribbean regional 2016",
+    caption: "Where it started: Caribbean regional, 2016, first year of university.",
+  },
+  icpc2019Arrival: {
+    src: "/images/icpc-2019-porto-arrival.jpg",
+    alt: "Team Limitless in front of the ICPC 2019 World Finals welcome banner",
+    caption: "Arriving at the ICPC World Finals, Porto 2019.",
+  },
+  icpc2019Tourist: {
+    src: "/images/icpc-2019-with-tourist.jpg",
+    alt: "William with Gennady Korotkevich at the ICPC World Finals 2019",
+    caption:
+      'With Gennady "tourist" Korotkevich at the 2019 World Finals in Porto. Widely regarded as the greatest competitive programmer of all time.',
+    link: { label: "Who is tourist?", url: "https://en.wikipedia.org/wiki/Gennady_Korotkevich" },
+  },
+  icpc2021Team: {
+    src: "/images/icpc-2021-moscow-team.jpg",
+    alt: "Team Limitless wearing COVID-19 face masks at the ICPC World Finals in Moscow",
+    caption: "ICPC World Finals, Moscow 2021, held during the COVID-19 pandemic. Masks on, spirits up.",
+  },
+  icpc2021Contest: {
+    src: "/images/icpc-2021-moscow-contest.jpg",
+    alt: "Contest floor with the scoreboard at the ICPC World Finals 2021",
+    caption: "Contest day in Moscow 2021 (COVID-19 era): masks, plexiglass dividers and the scoreboard in sight.",
+  },
+  invofoxOffice: {
+    src: "/images/invofox-office.jpg",
+    alt: "William in front of the Invofox logo at the office",
+    caption: "At the Invofox office.",
+  },
+  campNou: {
+    src: "/images/camp-nou.jpg",
+    alt: "William holding a Barça scarf in the stands at Camp Nou",
+    caption: "Dream unlocked: first time at Camp Nou watching Barça.",
+  },
+  carlitosBowtie: {
+    src: "/images/carlitos-bowtie.jpg",
+    alt: "Carlitos the cat with a red bow tie lying on a cat tree",
+    caption: "The face that earned him the name.",
+  },
+  carlitosSweater: {
+    src: "/images/carlitos-sweater.jpg",
+    alt: "Carlitos the cat wearing a red Christmas sweater",
+    caption: "Carlitos, dressed for the occasion.",
+  },
+  first10k: {
+    src: "/images/first-10k.jpg",
+    alt: "William and a friend showing their medals after a 10k race",
+    caption: "First official 10k, medal included.",
+  },
+} satisfies Record<string, Photo>;
+
+// ---------------------------------------------------------------------------
+// Timeline milestones (shown on the Profile view, one dot per milestone)
+// ---------------------------------------------------------------------------
+
+export interface AwardGroup {
+  title: string;
+  intro?: string;
+  items: Award[];
+}
+
+export interface Milestone {
+  id: string;
+  /** Short label under the dot. */
+  year: string;
+  label: string;
+  title: string;
+  org?: string;
+  period: string;
+  location?: string;
+  blurb?: string;
+  bullets?: string[];
+  awardGroups?: AwardGroup[];
+  showNotebook?: boolean;
+  links?: Link[];
+  photos?: Photo[];
+  current?: boolean;
+}
+
+export const milestones: Milestone[] = [
+  {
+    id: "preuniversity",
+    year: "2012–15",
+    label: "Pre-university",
+    title: "Pre-university education",
+    location: "Cuba",
+    period: "Until 2015",
+    blurb: "Where competitive programming started: national and international informatics olympiads.",
+    awardGroups: [{ title: "Olympiad medals", items: olympiadAwards }],
+  },
+  {
+    id: "bsc",
+    year: "2015–21",
+    label: "Computer Science",
+    title: "Bachelor's Degree in Computer Science",
+    org: "Universidad de Oriente",
+    location: "Cuba",
+    period: "Sep 2015 – Aug 2020 · ICPC until 2021",
+    blurb:
+      "Six years with team UO-SAM Limitless at the ICPC, including two World Finals appearances in Porto (2019) and Moscow (2021).",
+    awardGroups: [{ title: "ICPC results", intro: awardsIntro, items: icpcAwards }],
+    showNotebook: true,
+    links: [{ label: "Official ICPC profile", url: icpcProfileUrl }],
+    photos: [
+      photo.icpc2016,
+      photo.icpc2019Arrival,
+      photo.icpc2019Tourist,
+      photo.icpc2021Team,
+      photo.icpc2021Contest,
+    ],
+  },
+  {
+    id: "professor",
+    year: "2020–21",
+    label: "Professor",
+    title: "College Professor",
+    org: "Universidad de Oriente",
+    location: "Santiago de Cuba, Cuba",
+    period: "Aug 2020 – Dec 2021",
+    bullets: ["Taught Algebra and Analytical Geometry.", "Mentored competitive programming teams for ICPC."],
+  },
+  {
+    id: "middlesoft",
+    year: "2020–22",
+    label: "Middlesoft",
+    title: "Full Stack Web Developer",
+    org: "Middlesoft",
+    location: "Montevideo, Uruguay (Remote)",
+    period: "Nov 2020 – May 2022",
+    blurb: "Custom industrial, logistics and commercial software solutions.",
+    bullets: [
+      "Built server-side logic, REST APIs and database layers for resource management systems in the steel industry using ASP.NET and ASP.NET Core.",
+      "Developed front-end interfaces with HTML, CSS, JavaScript and jQuery; implemented SQL Server stored procedures and SSDT pipelines.",
+      "Worked within Azure DevOps under Scrum methodology.",
+    ],
+  },
+  {
+    id: "toshiba",
+    year: "2022–24",
+    label: "Toshiba GCS",
+    title: "Software Engineer",
+    org: "Toshiba Global Commerce Solutions",
+    location: "Guadalajara, México",
+    period: "May 2022 – Aug 2024",
+    blurb: "Global market share leader in retail store technology: POS systems, self-checkout and retail software.",
+    bullets: [
+      "Maintained a production Linux-based retail operating system; performed root-cause analysis and debugging using low-level system tools.",
+      "Developed features and fixes in C, C++, Java, Python and Bash across OS-level components.",
+      "Authored technical documentation and contributed ideas to internal patent registration processes.",
+      "Built internal tooling to automate compilation environment configuration, reducing developer setup time.",
+    ],
+    links: [{ label: "Toshiba GCS website", url: "https://commerce.toshiba.com" }],
+  },
+  {
+    id: "invofox",
+    year: "2024–now",
+    label: "Invofox",
+    title: "Algorithm & AI Engineer",
+    org: "Invofox",
+    location: "Barcelona, Spain (Hybrid)",
+    period: "Aug 2024 – Present",
+    blurb: "AI-powered startup automating invoice and document processing.",
+    bullets: [
+      "Own use cases end-to-end: requirements analysis, design, implementation, testing, deployment and post-production monitoring of results and costs.",
+      "Design multi-step document processing pipelines that orchestrate LLM-based and algorithmic components to deliver reliable structured data extraction.",
+      "Develop tool-using agents that automate internal processes: configuring and optimizing client-specific extraction pipelines through iterative evaluation, and investigating production issues across logs and stored data.",
+      "Integrate and evaluate multiple LLM providers, iterating on model and prompt strategies to balance quality, latency and cost.",
+      "Build evaluation practices end-to-end: ground-truth datasets, baselines, accuracy metrics and reproducible experimentation cycles to catch regressions and track business impact.",
+      "Develop algorithms to improve document and OCR processing quality; maintain and refactor production components and define schemas and validation rules from business requirements.",
+    ],
+    links: [{ label: "Invofox website", url: "https://www.invofox.com" }],
+    photos: [photo.invofoxOffice],
+    current: true,
+  },
+  {
+    id: "barcelona",
+    year: "Oct 2025",
+    label: "Barcelona",
+    title: "Moving to Barcelona",
+    location: "Barcelona, Spain",
+    period: "October 2025",
+    blurb:
+      "I worked remotely for Invofox until the paperwork was ready, and then finally made the move. It was partly a career decision and partly a lifelong dream: I have been a FC Barcelona fan since I was a kid, and one day I want to meet Messi and the Barça players in person.",
+    bullets: ["Cuban, married, and now living in the city of my favorite club."],
+    photos: [photo.campNou],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Personal view
+// ---------------------------------------------------------------------------
+
+export const personal = {
+  intro:
+    "When I'm not arguing with an LLM about what a valid invoice looks like, this is what the rest of my life looks like.",
+  facts: [
+    "FC Barcelona fan since I was a kid, and still chasing the dream of meeting Messi.",
+    "I share my home with Carlitos, a cat named after Carlito's Way. As a kitten he had the face of a small-time gangster, so the name picked itself. He has since mellowed, mostly.",
+    "Recently I started running. I finished my first official 10k and I'm already looking for the next one.",
+  ],
+  photos: [photo.carlitosBowtie, photo.carlitosSweater, photo.first10k] as Photo[],
 };

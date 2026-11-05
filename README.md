@@ -16,7 +16,7 @@ npm run preview   # serve dist/
 ## Where things live
 
 - `src/data/profile.ts`: **all the content** (bio, experience, skills, projects, awards, personal section). Edit this file to change any text.
-- `src/components/*.astro`: one component per section. They only loop over the data.
+- `src/components/*.astro`: one component per view (Profile = Hero + Timeline, Projects, Skills, Personal). The timeline milestones live in `milestones` inside `profile.ts`.
 - `src/layouts/Base.astro`: html head, nav and footer.
 - `src/styles/global.css`: the only stylesheet.
 - `public/cv.pdf`: the downloadable CV.

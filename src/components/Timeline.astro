@@ -1,0 +1,234 @@
+---
+import { milestones, referenceNotebook } from "../data/profile";
+
+// Geometry: a wave drawn through the milestone dots (viewBox 1000 x 260).
+const W = 1000;
+const H = 260;
+const n = milestones.length;
+const pts = milestones.map((_, i) => ({
+  x: 60 + (i * (W - 120)) / (n - 1),
+  y: i % 2 === 0 ? 90 : 170,
+}));
+let d = `M 0 ${pts[0].y} L ${pts[0].x} ${pts[0].y}`;
+for (let i = 1; i < n; i++) {
+  const a = pts[i - 1];
+  const b = pts[i];
+  const mx = (a.x + b.x) / 2;
+  d += ` C ${mx} ${a.y}, ${mx} ${b.y}, ${b.x} ${b.y}`;
+}
+d += ` L ${W} ${pts[n - 1].y}`;
+---
+
+<section id="timeline" class="timeline-wrap">
+  <h2>My path</h2>
+  <p class="meta hint" id="tl-hint">Click a milestone to explore it.</p>
+
+  <div class="tl-scroll">
+    <div class="tl" role="group" aria-label="Career timeline">
+      <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+        <path class="tl-path-bg" d={d}></path>
+        <path class="tl-path" d={d} pathLength="1"></path>
+      </svg>
+      {milestones.map((m, i) => (
+        <div
+          class={`stop ${i % 2 === 0 ? "above" : "below"}`}
+          data-i={i}
+          style={`left:${(pts[i].x / W) * 100}%; top:${(pts[i].y / H) * 100}%`}
+        >
+          <button
+            type="button"
+            class={`node ${m.current ? "current" : ""}`}
+            aria-expanded="false"
+            aria-controls={`panel-${m.id}`}
+            aria-label={`${m.title}, ${m.period}`}
+          ></button>
+          <span class="node-label"><b>{m.label}</b><span>{m.year}</span></span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="tl-panel" id="tl-panel">
+    <div class="tl-controls">
+      <button type="button" class="link-button" id="tl-prev">← Previous</button>
+      <span class="meta" id="tl-counter"></span>
+      <button type="button" class="link-button" id="tl-next">Next →</button>
+      <button type="button" class="link-button" id="tl-close" aria-label="Close details">Close ×</button>
+    </div>
+
+    {milestones.map((m, i) => (
+      <article class="panel" id={`panel-${m.id}`} data-i={i}>
+        <header>
+          <p class="meta">{m.period}{m.location ? ` · ${m.location}` : ""}</p>
+          <h3>{m.title}</h3>
+          {m.org && <p class="org">{m.org}</p>}
+        </header>
+
+        <div class={`panel-body ${m.photos?.length ? "has-photos" : ""}`}>
+          <div class="panel-text">
+            {m.blurb && <p class="blurb">{m.blurb}</p>}
+            {m.bullets && (
+              <ul>
+                {m.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            )}
+
+            {m.awardGroups?.map((g) => (
+              <>
+                <h4 class="cat">{g.title}</h4>
+                {g.intro && <p class="meta">{g.intro}</p>}
+                <ul class="awards">
+                  {g.items.map((a) => (
+                    <li><span class="year">{a.year}</span> <strong>{a.result}</strong> · {a.event}</li>
+                  ))}
+                </ul>
+              </>
+            ))}
+
+            {m.showNotebook && (
+              <>
+                <h4 class="cat">Team reference notebook (C++)</h4>
+                <p class="meta">{referenceNotebook.summary}</p>
+                <div class="notebook">
+                  {referenceNotebook.categories.map((c) => (
+                    <>
+                      <p class="cat-name">{c.name}</p>
+                      <ul class="tags">
+                        {c.items.map((it) => <li>{it}</li>)}
+                      </ul>
+                    </>
+                  ))}
+                </div>
+                <p>
+                  <a href={referenceNotebook.file} download class="button primary">Download the PDF</a>
+                </p>
+              </>
+            )}
+
+            {m.links && (
+              <p class="project-links">
+                {m.links.map((l) => (
+                  <a href={l.url} target="_blank" rel="noopener" class="button">{l.label}</a>
+                ))}
+              </p>
+            )}
+          </div>
+
+          {m.photos && m.photos.length > 0 && (
+            <div class="gal">
+              <figure>
+                <button
+                  type="button"
+                  class="gal-open"
+                  data-lightbox
+                  data-src={m.photos[0].src}
+                  data-alt={m.photos[0].alt}
+                  data-caption={m.photos[0].caption ?? ""}
+                  data-link={m.photos[0].link?.url ?? ""}
+                  data-link-label={m.photos[0].link?.label ?? ""}
+                  aria-label="Enlarge photo"
+                >
+                  <img class="gal-main" src={m.photos[0].src} alt={m.photos[0].alt} loading="lazy" />
+                </button>
+                <figcaption>
+                  <span class="gal-cap">{m.photos[0].caption}</span>{" "}
+                  <a class="gal-link" target="_blank" rel="noopener" href={m.photos[0].link?.url} hidden={!m.photos[0].link}>
+                    {m.photos[0].link?.label}
+                  </a>
+                </figcaption>
+              </figure>
+              {m.photos.length > 1 && (
+                <div class="thumbs">
+                  {m.photos.map((p, k) => (
+                    <button
+                      type="button"
+                      class={`gal-thumb ${k === 0 ? "on" : ""}`}
+                      data-src={p.src}
+                      data-alt={p.alt}
+                      data-caption={p.caption ?? ""}
+                      data-link={p.link?.url ?? ""}
+                      data-link-label={p.link?.label ?? ""}
+                      aria-label={`Show photo ${k + 1}`}
+                    >
+                      <img src={p.src} alt="" loading="lazy" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<script>
+  const root = document.getElementById("timeline")!;
+  const stops = [...root.querySelectorAll<HTMLElement>(".stop")];
+  const panels = [...root.querySelectorAll<HTMLElement>(".panel")];
+  const wrap = document.getElementById("tl-panel")!;
+  const hint = document.getElementById("tl-hint")!;
+  const counter = document.getElementById("tl-counter")!;
+  const prev = document.getElementById("tl-prev") as HTMLButtonElement;
+  const next = document.getElementById("tl-next") as HTMLButtonElement;
+  let current = -1;
+
+  function select(i: number, focus = false) {
+    if (i < -1 || i >= stops.length) return;
+    current = i;
+    stops.forEach((s, k) => {
+      s.classList.toggle("selected", k === i);
+      s.querySelector("button")!.setAttribute("aria-expanded", String(k === i));
+    });
+    panels.forEach((p, k) => p.classList.toggle("active", k === i));
+    wrap.classList.toggle("open", i >= 0);
+    hint.hidden = i >= 0;
+    if (i >= 0) {
+      counter.textContent = `${i + 1} / ${stops.length}`;
+      prev.disabled = i === 0;
+      next.disabled = i === stops.length - 1;
+      stops[i].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      if (focus) stops[i].querySelector("button")!.focus();
+    }
+  }
+
+  stops.forEach((s, i) => s.addEventListener("click", () => select(current === i ? -1 : i)));
+  prev.addEventListener("click", () => select(current - 1, true));
+  next.addEventListener("click", () => select(current + 1, true));
+  document.getElementById("tl-close")!.addEventListener("click", () => select(-1));
+  root.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") select(Math.min(stops.length - 1, current + 1), true);
+    else if (e.key === "ArrowLeft") select(Math.max(0, current - 1), true);
+    else if (e.key === "Escape") select(-1);
+  });
+
+  // Mini gallery inside each panel: thumbnails swap the main photo.
+  root.querySelectorAll<HTMLElement>(".gal").forEach((gal) => {
+    const main = gal.querySelector<HTMLImageElement>(".gal-main")!;
+    const open = gal.querySelector<HTMLElement>(".gal-open")!;
+    const cap = gal.querySelector<HTMLElement>(".gal-cap")!;
+    const link = gal.querySelector<HTMLAnchorElement>(".gal-link")!;
+    gal.querySelectorAll<HTMLButtonElement>(".gal-thumb").forEach((t) =>
+      t.addEventListener("click", () => {
+        const d = t.dataset;
+        main.src = d.src!;
+        main.alt = d.alt!;
+        cap.textContent = d.caption || "";
+        link.hidden = !d.link;
+        if (d.link) {
+          link.href = d.link;
+          link.textContent = d.linkLabel || d.link;
+        }
+        Object.assign(open.dataset, {
+          src: d.src,
+          alt: d.alt,
+          caption: d.caption,
+          link: d.link,
+          linkLabel: d.linkLabel,
+        });
+        gal.querySelectorAll(".gal-thumb").forEach((x) => x.classList.toggle("on", x === t));
+      }),
+    );
+  });
+</script>

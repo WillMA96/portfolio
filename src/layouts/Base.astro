@@ -10,10 +10,9 @@ interface Props {
 const { title = profile.name, description = profile.title } = Astro.props;
 
 const nav = [
-  { href: "#experience", label: "Experience" },
+  { href: "#profile", label: "Profile" },
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
-  { href: "#awards", label: "Awards" },
   { href: "#personal", label: "Personal" },
 ];
 ---
@@ -34,7 +33,7 @@ const nav = [
   </head>
   <body>
     <header class="site-header">
-      <a href="#top" class="brand">{profile.name}</a>
+      <a href="#profile" class="brand">{profile.name}</a>
       <nav aria-label="Sections">
         {nav.map((item) => <a href={item.href}>{item.label}</a>)}
       </nav>
@@ -49,41 +48,49 @@ const nav = [
       </p>
     </footer>
 
-    <script>
-      // Fade sections in as they scroll into view.
-      const targets = document.querySelectorAll<HTMLElement>(".reveal");
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (e.isIntersecting) {
-                e.target.classList.add("visible");
-                io.unobserve(e.target);
-              }
-            }
-          },
-          { threshold: 0.08 },
-        );
-        targets.forEach((t) => io.observe(t));
-      } else {
-        targets.forEach((t) => t.classList.add("visible"));
-      }
+    <dialog id="lightbox">
+      <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+      <img id="lb-img" alt="" />
+      <p id="lb-caption"></p>
+      <p><a id="lb-link" target="_blank" rel="noopener" hidden></a></p>
+    </dialog>
 
-      // Highlight the nav link of the section being read.
-      const links = document.querySelectorAll<HTMLAnchorElement>(".site-header nav a");
-      const spy = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (e.isIntersecting) {
-              links.forEach((l) =>
-                l.classList.toggle("active", l.getAttribute("href") === "#" + e.target.id),
-              );
-            }
-          }
-        },
-        { rootMargin: "-40% 0px -55% 0px" },
-      );
-      document.querySelectorAll("main section[id]").forEach((s) => spy.observe(s));
+    <script>
+      // Views: only the one matching the URL hash is visible.
+      const views = [...document.querySelectorAll<HTMLElement>(".view")];
+      const links = [...document.querySelectorAll<HTMLAnchorElement>(".site-header nav a")];
+      function showView() {
+        const id = location.hash.slice(1);
+        const target = views.find((v) => v.id === id) ?? views[0];
+        views.forEach((v) => v.classList.toggle("active", v === target));
+        links.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === "#" + target.id));
+        window.scrollTo(0, 0);
+      }
+      window.addEventListener("hashchange", showView);
+      showView();
+
+      // Lightbox shared by every element with data-lightbox.
+      const dlg = document.getElementById("lightbox") as HTMLDialogElement;
+      const img = document.getElementById("lb-img") as HTMLImageElement;
+      const cap = document.getElementById("lb-caption")!;
+      const link = document.getElementById("lb-link") as HTMLAnchorElement;
+      document.addEventListener("click", (e) => {
+        const el = (e.target as HTMLElement).closest<HTMLElement>("[data-lightbox]");
+        if (!el) return;
+        img.src = el.dataset.src!;
+        img.alt = el.dataset.alt || "";
+        cap.textContent = el.dataset.caption || "";
+        const url = el.dataset.link;
+        link.hidden = !url;
+        if (url) {
+          link.href = url;
+          link.textContent = el.dataset.linkLabel || url;
+        }
+        dlg.showModal();
+      });
+      dlg.addEventListener("click", (e) => {
+        if (e.target === dlg) dlg.close();
+      });
     </script>
   </body>
 </html>

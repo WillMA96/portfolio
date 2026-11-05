@@ -2,7 +2,7 @@
 import { projects } from "../data/profile";
 ---
 
-<section id="projects" class="reveal">
+<section>
   <h2>Projects</h2>
   {projects.map((p) => (
     <article class="card project">
@@ -16,18 +16,14 @@ import { projects } from "../data/profile";
         {p.stack.map((s) => <li>{s}</li>)}
       </ul>
 
-      <details class="more">
-        <summary>The approach</summary>
-        {p.description.map((d) => <p>{d}</p>)}
-        <pre class="pipeline">{p.pipeline}</pre>
-      </details>
+      <h4 class="cat">The approach</h4>
+      {p.description.map((d) => <p>{d}</p>)}
+      <pre class="pipeline">{p.pipeline}</pre>
 
-      <details class="more">
-        <summary>Results</summary>
-        <ul>
-          {p.highlights.map((h) => <li>{h}</li>)}
-        </ul>
-      </details>
+      <h4 class="cat">Results</h4>
+      <ul>
+        {p.highlights.map((h) => <li>{h}</li>)}
+      </ul>
 
       <p class="project-links">
         {p.repo && <a href={p.repo} target="_blank" rel="noopener" class="button">Source on GitHub</a>}
