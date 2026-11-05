@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { profile } from "../data/profile";
+import { codeBackdrop } from "../data/codeBackdrop";
 
 interface Props {
   title?: string;
@@ -32,6 +33,7 @@ const nav = [
     <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
   <body>
+    <pre class="code-bg" aria-hidden="true">{codeBackdrop.join("\n")}</pre>
     <header class="site-header">
       <a href="#profile" class="brand">{profile.name}</a>
       <nav aria-label="Sections">

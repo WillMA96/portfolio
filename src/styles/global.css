@@ -317,3 +317,22 @@ dialog#lightbox.closing::backdrop { animation: fade-out 0.18s ease-in forwards; 
   .panel-body:not(.has-photos) .panel-text > ul:not(.awards) { columns: 2; column-gap: 2.5rem; }
   .panel-body:not(.has-photos) .panel-text > ul:not(.awards) li { break-inside: avoid; }
 }
+
+/* ---------- page background: real C++ from the team notebook ---------- */
+.code-bg {
+  position: fixed; inset: 0; z-index: -1; margin: 0; padding: 1rem 1.25rem;
+  height: 100vh; height: 100dvh; overflow: hidden;
+  columns: 26rem; column-gap: 2rem; column-fill: auto;
+  font: 0.7rem/1.55 ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  white-space: pre;
+  color: transparent;
+  background: linear-gradient(120deg, var(--code-1), var(--code-2));
+  -webkit-background-clip: text; background-clip: text;
+  pointer-events: none; user-select: none;
+  --code-1: rgb(0 77 152 / 22%);
+  --code-2: rgb(165 0 68 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  .code-bg { --code-1: rgb(110 168 255 / 17%); --code-2: rgb(255 111 163 / 14%); }
+}
+@media print { .code-bg { display: none; } }
