@@ -255,11 +255,6 @@ export const personal = {
       caption: "Where it started: Caribbean regional, 2016, first year of university.",
     },
     {
-      src: "/images/wedding.jpg",
-      alt: "William and his wife holding a heart-shaped balloon on their wedding day",
-      caption: "Wedding day.",
-    },
-    {
       src: "/images/first-10k.jpg",
       alt: "William and a friend showing their medals after a 10k race",
       caption: "First official 10k, medal included.",
