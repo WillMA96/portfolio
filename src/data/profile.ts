@@ -270,8 +270,7 @@ export const milestones: Milestone[] = [
     location: "Cuba",
     period: "Sep 2015 – Aug 2020 · ICPC until 2021",
     blurb:
-      "Six years with team UO-SAM Limitless at the ICPC, including two World Finals appearances in Porto (2019) and Moscow (2021).",
-    bullets: ["Graduated with honors and received the Scientific Merit Award."],
+      "Six years with team UO-SAM Limitless at the ICPC, including two World Finals appearances in Porto (2019) and Moscow (2021). Graduated with honors and received the Scientific Merit Award.",
     awardGroups: [
       {
         title: "ICPC results",
