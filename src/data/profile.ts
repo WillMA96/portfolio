@@ -199,8 +199,8 @@ const photo = {
   },
   icpc2021Team: {
     src: "/images/icpc-2021-moscow-team.jpg",
-    alt: "Team Limitless wearing COVID-19 face masks at the ICPC World Finals in Moscow",
-    caption: "ICPC World Finals, Moscow 2021, held during the COVID-19 pandemic. Masks on, spirits up.",
+    alt: "The four members of team Limitless in front of the ICPC World Finals Moscow sponsor wall",
+    caption: "Team Limitless at the ICPC World Finals, Moscow 2021.",
   },
   icpc2021Contest: {
     src: "/images/icpc-2021-moscow-contest.jpg",
