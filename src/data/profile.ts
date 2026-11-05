@@ -226,6 +226,8 @@ const photo = {
 export interface AwardGroup {
   title: string;
   intro?: string;
+  /** Part of the intro text that becomes a link. */
+  introLink?: { text: string; url: string };
   items: Award[];
 }
 
@@ -269,7 +271,14 @@ export const milestones: Milestone[] = [
     period: "Sep 2015 – Aug 2020 · ICPC until 2021",
     blurb:
       "Six years with team UO-SAM Limitless at the ICPC, including two World Finals appearances in Porto (2019) and Moscow (2021).",
-    awardGroups: [{ title: "ICPC results", intro: awardsIntro, items: icpcAwards }],
+    awardGroups: [
+      {
+        title: "ICPC results",
+        intro: awardsIntro,
+        introLink: { text: "International Collegiate Programming Contest (ICPC)", url: "https://icpc.foundation/" },
+        items: icpcAwards,
+      },
+    ],
     showNotebook: true,
     links: [{ label: "Official ICPC profile", url: icpcProfileUrl }],
     photos: [
