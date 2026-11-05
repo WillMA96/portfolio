@@ -43,6 +43,7 @@ export interface Photo {
   src: string; // path relative to /public
   alt: string;
   caption?: string;
+  link?: Link; // optional "read more" link rendered after the caption
 }
 
 export const profile = {
@@ -191,8 +192,7 @@ export const olympiadAwards: Award[] = [
   { result: "Silver Medal", event: "Cuban Competition in Informatics", year: 2012 },
 ];
 
-// TODO: replace with the exact URL from the CV's "Official ICPC ID" link.
-export const icpcProfileUrl = "https://icpc.global";
+export const icpcProfileUrl = "https://icpc.global/ICPCID/6SAUHN5TJQJD";
 
 export const languages = [
   { name: "Spanish", level: "Native" },
@@ -206,9 +206,63 @@ export const personal = {
     "Cuban, married, and living in Barcelona since 2024.",
     "FC Barcelona fan since I was a kid. Moving to Barcelona was partly a career decision and partly a lifelong dream: one day I want to meet Messi and the Barça players in person. No regrets so far.",
     "I share my home with Carlitos, a cat named after Carlito's Way. As a kitten he had the face of a small-time gangster, so the name picked itself. He has since mellowed, mostly.",
-    "Competitive programming has been part of my life since the school olympiads. The ICPC years with my team and the trips to the World Finals are some of my best memories.",
+    "Competitive programming has been part of my life since the school olympiads. The ICPC years with my team Limitless and the trips to the World Finals are some of my best memories.",
+    "Recently I started running. I finished my first official 10k and I'm already looking for the next one.",
   ],
   // Drop image files into /public/images and list them here.
   // The gallery only renders the photos listed below.
-  photos: [] as Photo[],
+  photos: [
+    {
+      src: "/images/camp-nou.jpg",
+      alt: "William holding a Barça scarf in the stands at Camp Nou",
+      caption: "Dream unlocked: first time at Camp Nou watching Barça.",
+    },
+    {
+      src: "/images/carlitos-sweater.jpg",
+      alt: "Carlitos the cat wearing a red Christmas sweater",
+      caption: "Carlitos, dressed for the occasion.",
+    },
+    {
+      src: "/images/carlitos-bowtie.jpg",
+      alt: "Carlitos the cat with a red bow tie lying on a cat tree",
+      caption: "The face that earned him the name.",
+    },
+    {
+      src: "/images/icpc-2019-with-tourist.jpg",
+      alt: "William with Gennady Korotkevich at the ICPC World Finals 2019",
+      caption:
+        "With Gennady \"tourist\" Korotkevich at the 2019 World Finals in Porto. Widely regarded as the greatest competitive programmer of all time.",
+      link: { label: "Who is tourist?", url: "https://en.wikipedia.org/wiki/Gennady_Korotkevich" },
+    },
+    {
+      src: "/images/icpc-2019-porto-arrival.jpg",
+      alt: "Team Limitless in front of the ICPC 2019 World Finals welcome banner",
+      caption: "Arriving at the ICPC World Finals, Porto 2019.",
+    },
+    {
+      src: "/images/icpc-2021-moscow-team.jpg",
+      alt: "Team Limitless wearing masks at the ICPC World Finals in Moscow",
+      caption: "World Finals in Moscow, 2021. Masks on, spirits up.",
+    },
+    {
+      src: "/images/icpc-2021-moscow-contest.jpg",
+      alt: "Contest floor with the scoreboard at the ICPC World Finals 2021",
+      caption: "Contest day in Moscow, scoreboard in sight.",
+    },
+    {
+      src: "/images/icpc-2016-caribbean-regional.jpg",
+      alt: "Team Limitless at the ICPC Caribbean regional 2016",
+      caption: "Where it started: Caribbean regional, 2016, first year of university.",
+    },
+    {
+      src: "/images/wedding.jpg",
+      alt: "William and his wife holding a heart-shaped balloon on their wedding day",
+      caption: "Wedding day.",
+    },
+    {
+      src: "/images/first-10k.jpg",
+      alt: "William and a friend showing their medals after a 10k race",
+      caption: "First official 10k, medal included.",
+    },
+  ] as Photo[],
 };

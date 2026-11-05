@@ -20,7 +20,7 @@ npm run preview   # serve dist/
 - `src/layouts/Base.astro`: html head, nav and footer.
 - `src/styles/global.css`: the only stylesheet.
 - `public/cv.pdf`: the downloadable CV.
-- `public/images/`: photos. Drop files here and list them in `personal.photos` inside `profile.ts`, e.g.
+- `public/images/`: photos, already resized (max 1600px, no EXIF). Originals live outside the repo in `~/portafolio_fotos_originales`. To add one, drop the file here and list it in `personal.photos` inside `profile.ts`, e.g.
 
 ```ts
 photos: [

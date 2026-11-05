@@ -14,7 +14,14 @@ import { personal } from "../data/profile";
       {personal.photos.map((photo) => (
         <figure>
           <img src={photo.src} alt={photo.alt} loading="lazy" />
-          {photo.caption && <figcaption>{photo.caption}</figcaption>}
+          {(photo.caption || photo.link) && (
+            <figcaption>
+              {photo.caption}{" "}
+              {photo.link && (
+                <a href={photo.link.url} target="_blank" rel="noopener">{photo.link.label}</a>
+              )}
+            </figcaption>
+          )}
         </figure>
       ))}
     </div>
