@@ -117,7 +117,12 @@ export const icpcAwards: Award[] = [
 ];
 
 export const olympiadAwards: Award[] = [
-  { result: "Bronze Medal", event: "Ibero-American Informatics Competition, Portugal", year: 2013 },
+  {
+    result: "Bronze Medal",
+    event: "Ibero-American Informatics Competition, Portugal",
+    year: 2013,
+    url: "https://www.iberoinformatica.org/contestant_details/7944",
+  },
   { result: "Gold Medal", event: "Cuban Competition in Informatics", year: 2013 },
   { result: "Silver Medal", event: "Cuban Competition in Informatics", year: 2012 },
 ];
@@ -383,7 +388,7 @@ export const personal = {
     "When I'm not arguing with an LLM about what a valid invoice looks like, this is what the rest of my life looks like.",
   facts: [
     "I'm a very passionate person and I like a lot of things, especially sport, music and cinema.",
-    "I share my home with Carlitos, a cat named after Carlito's Way. As a kitten he had the face of a small-time gangster, so the name picked itself. He has since mellowed, mostly.",
+    "I'm married, and I share my home with my wife and Carlitos, a cat named after Carlito's Way. As a kitten he had the face of a small-time gangster, so the name picked itself. He has since mellowed, mostly.",
   ],
   interests: [
     {
